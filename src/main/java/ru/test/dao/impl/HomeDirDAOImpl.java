@@ -5,7 +5,15 @@ import org.springframework.stereotype.Repository;
 import ru.test.dao.HomeDirDAO;
 import ru.test.model.HomeDir;
 
+import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 public class HomeDirDAOImpl implements HomeDirDAO {
@@ -15,17 +23,39 @@ public class HomeDirDAOImpl implements HomeDirDAO {
 
     private HomeDir homeDir;
 
-    public void postConstruct() {
-        this.homeDir=new HomeDir(this.pathString);
+    @PostConstruct
+    public void initHomeDir() {
+        this.homeDir = new HomeDir(this.pathString);
     }
 
     @Override
     public List<String> getHomeDirContent() {
-        return null;
+
+        List<String> resultList = null;
+
+        try (Stream<Path> walk = Files.walk(this.homeDir.getPath())) {
+            resultList = walk.filter(Files::isRegularFile)
+                    .map(x -> x.toString()).collect(Collectors.toList());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resultList;
     }
 
     @Override
     public List<String> getFileContent(String inputName) {
-        return null;
+        List<String> listLines = null;
+
+        Path filePath = Paths.get(this.homeDir.getPath().toString().concat(inputName));
+        Charset cs = Charset.forName("CP1251");
+
+        try {
+            listLines = Files.readAllLines(filePath, cs);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listLines;
     }
 }
