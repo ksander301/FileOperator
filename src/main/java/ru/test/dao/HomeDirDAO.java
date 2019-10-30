@@ -8,5 +8,5 @@ import java.util.List;
 public interface HomeDirDAO {
     List<String> getHomeDirContent();
 
-    List<String> getFileContent(String inputName);
+    List<String> getFileContent(String fileName);
 }

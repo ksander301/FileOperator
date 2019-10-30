@@ -19,4 +19,10 @@ public class HomeDir {
         this.path = path;
     }
 
+    @Override
+    public String toString() {
+        return "HomeDir{" +
+                "path=" + path +
+                '}';
+    }
 }

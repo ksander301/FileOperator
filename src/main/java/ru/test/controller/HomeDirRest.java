@@ -1,8 +1,8 @@
-package ru.test.logic;
+package ru.test.controller;
 
 import java.util.List;
 
-public interface HomeDirService {
+public interface HomeDirRest {
     List<String> getHomeDirContent();
 
     List<String> getFileContent(String fileName);

@@ -44,10 +44,10 @@ public class HomeDirDAOImpl implements HomeDirDAO {
     }
 
     @Override
-    public List<String> getFileContent(String inputName) {
+    public List<String> getFileContent(String fileName) {
         List<String> listLines = null;
 
-        Path filePath = Paths.get(this.homeDir.getPath().toString().concat(inputName));
+        Path filePath = Paths.get(this.homeDir.getPath().toString().concat(fileName));
         Charset cs = Charset.forName("CP1251");
 
         try {
