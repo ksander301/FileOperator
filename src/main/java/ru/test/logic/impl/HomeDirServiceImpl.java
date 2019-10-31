@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.test.dao.HomeDirDAO;
 import ru.test.logic.HomeDirService;
-
 import java.util.List;
-
 
 @Service
 public class HomeDirServiceImpl implements HomeDirService {

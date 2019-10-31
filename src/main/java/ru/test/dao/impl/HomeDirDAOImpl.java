@@ -35,11 +35,13 @@ public class HomeDirDAOImpl implements HomeDirDAO {
 
         try (Stream<Path> walk = Files.walk(this.homeDir.getPath())) {
             resultList = walk.filter(Files::isRegularFile)
-                    .map(x -> x.toString()).collect(Collectors.toList());
+                    .map(x -> x.getFileName().toString())
+                    .collect(Collectors.toList());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        resultList.forEach(System.out::println);
         return resultList;
     }
 
@@ -47,7 +49,7 @@ public class HomeDirDAOImpl implements HomeDirDAO {
     public List<String> getFileContent(String fileName) {
         List<String> listLines = null;
 
-        Path filePath = Paths.get(this.homeDir.getPath().toString().concat(fileName));
+        Path filePath = Paths.get(this.homeDir.getPath().toString().concat('\\'+fileName));
         Charset cs = Charset.forName("CP1251");
 
         try {
