@@ -40,11 +40,11 @@ public class HomeDirRestImpl implements HomeDirRest {
 
     @Override
     @RequestMapping(value="/get/{filename:.+}",method = RequestMethod.GET , produces = "text/plain")
-    public Resource getFileByName(@PathVariable String filename, HttpServletResponse responce) throws FileNotFoundException {
+    public Resource getFileByName(@PathVariable String filename, HttpServletResponse response) throws FileNotFoundException {
         File file= this.homeDirService.getFile(filename);
-        responce.setContentType("text/plain");
-        responce.setHeader("Content-Disposition", "inline; filename=" + file.getName());
-        responce.setHeader("Content-Length", String.valueOf(file.length()));
+        response.setContentType("text/plain");
+        response.setHeader("Content-Disposition", "inline; filename=" + file.getName());
+        response.setHeader("Content-Length", String.valueOf(file.length()));
         Resource resource = new FileSystemResource(file);
         return resource;
     }
