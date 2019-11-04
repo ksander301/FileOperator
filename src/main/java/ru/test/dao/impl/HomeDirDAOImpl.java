@@ -6,6 +6,8 @@ import ru.test.dao.HomeDirDAO;
 import ru.test.model.HomeDir;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -49,7 +51,7 @@ public class HomeDirDAOImpl implements HomeDirDAO {
     public List<String> getFileContent(String fileName) {
         List<String> listLines = null;
 
-        Path filePath = Paths.get(this.homeDir.getPath().toString().concat('\\'+fileName));
+        Path filePath = Paths.get(this.homeDir.getPath().toString().concat('\\' + fileName));
         Charset cs = Charset.forName("CP1251");
 
         try {
@@ -59,5 +61,17 @@ public class HomeDirDAOImpl implements HomeDirDAO {
             e.printStackTrace();
         }
         return listLines;
+    }
+
+    @Override
+    public File getFile(String fileName) throws FileNotFoundException {
+        File file = new File(this.homeDir.getPath().toString().concat('\\' + fileName));
+
+        if (file.exists())
+            return file;
+        else
+            throw new FileNotFoundException("Not found file by path:" + file.getPath());
+
+
     }
 }
