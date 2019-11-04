@@ -31,24 +31,21 @@ public class HomeDirRestImpl implements HomeDirRest {
         return this.homeDirService.getHomeDirContent();
     }
 
-    //headers = {"content-type=text/plain"}
     @Override
-    @RequestMapping(value = "/get",consumes = {MediaType.TEXT_HTML_VALUE}, produces = {MediaType.TEXT_HTML_VALUE}, headers = "content-type=text/plain")
+    @RequestMapping(value = "/get", headers = "content-type=text/plain")
     public @ResponseBody List<String> getFileContent(@RequestParam("fileName") String fileName) {
 
         return this.homeDirService.getFileContent(fileName);
     }
 
     @Override
-    @RequestMapping(value="/get/{filename:.+}", produces = "text/plain")
+    @RequestMapping(value="/get/{filename:.+}",method = RequestMethod.GET , produces = "text/plain")
     public Resource getFileByName(@PathVariable String filename, HttpServletResponse responce) throws FileNotFoundException {
         File file= this.homeDirService.getFile(filename);
-       // responce.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
-
+        responce.setContentType("text/plain");
         responce.setHeader("Content-Disposition", "inline; filename=" + file.getName());
         responce.setHeader("Content-Length", String.valueOf(file.length()));
-        //responce.setCharacterEncoding("UTF-8");
-        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-        return resource/*new FileSystemResource(file)*/;
+        Resource resource = new FileSystemResource(file);
+        return resource;
     }
 }
