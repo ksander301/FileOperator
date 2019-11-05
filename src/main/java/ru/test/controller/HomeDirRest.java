@@ -14,5 +14,5 @@ public interface HomeDirRest {
 
     List<String> getFileContent(String fileName);
 
-    Resource getFileByName(String fileName, HttpServletResponse responce) throws FileNotFoundException;
+    Resource getFileByName(String fileName, HttpServletResponse response) throws FileNotFoundException;
 }
