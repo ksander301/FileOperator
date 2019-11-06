@@ -5,10 +5,11 @@ import ru.test.model.HomeDir;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public interface HomeDirDAO {
-    List<String> getHomeDirContent();
+    List<String> getHomeDirContent() throws IOException;
 
     List<String> getFileContent(String fileName);
 

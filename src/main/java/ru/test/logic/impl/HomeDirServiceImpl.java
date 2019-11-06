@@ -7,6 +7,7 @@ import ru.test.logic.HomeDirService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ public class HomeDirServiceImpl implements HomeDirService {
     public HomeDirDAO homeDirDAO;
 
     @Override
-    public List<String> getHomeDirContent() {
+    public List<String> getHomeDirContent() throws IOException {
         return this.homeDirDAO.getHomeDirContent();
 
     }
