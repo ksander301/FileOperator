@@ -46,7 +46,7 @@ public class HomeDirDAOImpl implements HomeDirDAO {
             //resultList.forEach(System.out::println);
             return resultList;
         } else
-            throw new IOException("Path Value of property is not a valid irectory: " + this.pathString);
+            throw new NotDirectoryException("Path Value of property is not a valid irectory: " + this.pathString);
     }
 
     @Override
