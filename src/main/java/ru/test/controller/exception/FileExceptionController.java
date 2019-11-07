@@ -17,18 +17,22 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/*
+ * Experimental of global handling exceptions, not useful,
+ * DefaultErrorController has more functionality
+ */
 @RestControllerAdvice
 public class FileExceptionController extends ResponseEntityExceptionHandler {
     @ExceptionHandler({IOException.class})
     public ResponseEntity<ExceptionResponse> fileNotFound(IOException ex, HttpServletRequest request) {
         HttpStatus status;
-        if (ex instanceof NotDirectoryException)
-            status = HttpStatus.NOT_FOUND; //TODO Something better than it...
-        else if (ex instanceof FileNotFoundException)
+        if (ex instanceof FileNotFoundException) {
+            status = HttpStatus.NOT_FOUND; //TODO Something better ...
+        } else if (ex instanceof NotDirectoryException)
             status = HttpStatus.BAD_REQUEST; //TODO ...as same as previous
         else
             status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return new ResponseEntity<ExceptionResponse>(new ExceptionResponse(new Date(), ex.getMessage(), request.getRequestURI() /*request.getDescription(false)*/, String.valueOf(status.value())), status);
+        return new ResponseEntity<ExceptionResponse>(new ExceptionResponse(new Date(), ex.getMessage(), request.getRequestURI(), String.valueOf(status.value())), status);
 
         /*HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Content-Type","text/plain");
