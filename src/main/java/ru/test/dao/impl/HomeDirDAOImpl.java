@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.NotDirectoryException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -31,20 +32,21 @@ public class HomeDirDAOImpl implements HomeDirDAO {
     }
 
     @Override
-    public List<String> getHomeDirContent() {
-
+    public List<String> getHomeDirContent() throws IOException {
         List<String> resultList = null;
-
-        try (Stream<Path> walk = Files.walk(this.homeDir.getPath())) {
-            resultList = walk.filter(Files::isRegularFile)
-                    .map(x -> x.getFileName().toString())
-                    .collect(Collectors.toList());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        resultList.forEach(System.out::println);
-        return resultList;
+        if (Files.exists(this.homeDir.getPath()) && Files.isDirectory(this.homeDir.getPath())) {
+            try (Stream<Path> walk = Files.walk(this.homeDir.getPath())) {
+                resultList = walk.filter(Files::isRegularFile)
+                        .map(x -> x.getFileName().toString())
+                        .collect(Collectors.toList());
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new IOException("IO Error by reading home directory:" + this.pathString);
+            }
+            //resultList.forEach(System.out::println);
+            return resultList;
+        } else
+            throw new NotDirectoryException("Path Value of property is not a valid irectory: " + this.pathString);
     }
 
     @Override
@@ -66,12 +68,10 @@ public class HomeDirDAOImpl implements HomeDirDAO {
     @Override
     public File getFile(String fileName) throws FileNotFoundException {
         File file = new File(this.homeDir.getPath().toString().concat('\\' + fileName));
-
         if (file.exists())
             return file;
         else
             throw new FileNotFoundException("Not found file by path:" + file.getPath());
-
 
     }
 }

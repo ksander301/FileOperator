@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public interface HomeDirRest {
-    List<String> getHomeDirContent();
+    List<String> getHomeDirContent() throws IOException;
 
     List<String> getFileContent(String fileName);
 
