@@ -23,11 +23,6 @@ public class HomeDirServiceImpl implements HomeDirService {
     }
 
     @Override
-    public List<String> getFileContent(String fileName) {
-        return this.homeDirDAO.getFileContent(fileName);
-    }
-
-    @Override
     public File getFile(String fileName) throws FileNotFoundException {
         return this.homeDirDAO.getFile(fileName);
     }

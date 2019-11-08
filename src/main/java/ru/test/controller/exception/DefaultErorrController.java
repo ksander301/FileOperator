@@ -24,8 +24,6 @@ public class DefaultErorrController extends AbstractErrorController {
 
     static final String PATH = "/error";
 
-
-
     public DefaultErorrController(ErrorAttributes errorAttributes) {
         super(errorAttributes);
     }

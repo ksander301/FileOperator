@@ -8,6 +8,5 @@ import java.util.List;
 public interface HomeDirService {
     List<String> getHomeDirContent() throws IOException;
 
-    List<String> getFileContent(String fileName);
     File getFile(String fileName) throws FileNotFoundException;
 }

@@ -39,31 +39,15 @@ public class HomeDirDAOImpl implements HomeDirDAO {
                 resultList = walk.filter(Files::isRegularFile)
                         .map(x -> x.getFileName().toString())
                         .collect(Collectors.toList());
-            } catch (IOException e) {
+            } catch (IOException e) { //TODO Remove Try Catch, method throw IOExcpeption at all
                 e.printStackTrace();
                 throw new IOException("IO Error by reading home directory:" + this.pathString);
             }
-            //resultList.forEach(System.out::println);
             return resultList;
         } else
             throw new NotDirectoryException("Path Value of property is not a valid irectory: " + this.pathString);
     }
 
-    @Override
-    public List<String> getFileContent(String fileName) {
-        List<String> listLines = null;
-
-        Path filePath = Paths.get(this.homeDir.getPath().toString().concat('\\' + fileName));
-        Charset cs = Charset.forName("CP1251");
-
-        try {
-            listLines = Files.readAllLines(filePath, cs);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return listLines;
-    }
 
     @Override
     public File getFile(String fileName) throws FileNotFoundException {

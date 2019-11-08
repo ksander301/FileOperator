@@ -35,15 +35,6 @@ public class HomeDirRestImpl implements HomeDirRest {
     }
 
     @Override
-    @RequestMapping(value = "/get")
-    public
-    @ResponseBody
-    List<String> getFileContent(@RequestParam("fileName") String fileName) {
-
-        return this.homeDirService.getFileContent(fileName);
-    }
-
-    @Override
     @RequestMapping(value = "/get/{filename:.+}", method = RequestMethod.GET, produces = "text/plain")
     public Resource getFileByName(@PathVariable String filename, HttpServletResponse response) throws FileNotFoundException {
         File file = this.homeDirService.getFile(filename);

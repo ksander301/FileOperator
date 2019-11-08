@@ -13,7 +13,7 @@ import java.util.List;
 public interface HomeDirRest {
     List<String> getHomeDirContent() throws IOException;
 
-    List<String> getFileContent(String fileName);
+
 
     Resource getFileByName(String fileName, HttpServletResponse response) throws FileNotFoundException;
 }
