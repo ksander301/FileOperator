@@ -39,7 +39,7 @@ public class HomeDirDAOImpl implements HomeDirDAO {
                 resultList = walk.filter(Files::isRegularFile)
                         .map(x -> x.getFileName().toString())
                         .collect(Collectors.toList());
-            } catch (IOException e) { //TODO Remove Try Catch, method throw IOExcpeption at all
+            } catch (IOException e) { //TODO Remove Try Catch, method throws IOExcpeption at all
                 e.printStackTrace();
                 throw new IOException("IO Error by reading home directory:" + this.pathString);
             }
