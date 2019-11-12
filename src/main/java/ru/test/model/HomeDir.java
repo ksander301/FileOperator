@@ -5,24 +5,35 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class HomeDir {
-    private Path path;
+    private Path homePath;
+    private Path storePath;
 
-    public HomeDir(String pathString) {
-        this.path = Paths.get(pathString);
+    public HomeDir(String homePathStr, String storePathStr) {
+        this.homePath = Paths.get(homePathStr);
+        this.storePath = Paths.get(storePathStr);
     }
 
-    public Path getPath() {
-        return path;
+    public Path getHomePath() {
+        return homePath;
     }
 
-    public void setPath(Path path) {
-        this.path = path;
+    public void setHomePath(Path homePath) {
+        this.homePath = homePath;
+    }
+
+    public Path getStorePath() {
+        return storePath;
+    }
+
+    public void setStorePath(Path storePath) {
+        this.storePath = storePath;
     }
 
     @Override
     public String toString() {
         return "HomeDir{" +
-                "path=" + path +
+                "homePath=" + homePath +
+                ", storePath=" + storePath +
                 '}';
     }
 }

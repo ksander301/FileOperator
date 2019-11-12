@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import ru.test.controller.HomeDirRest;
+import ru.test.controller.entity.UploadFileResponse;
 import ru.test.logic.HomeDirService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +45,14 @@ public class HomeDirRestImpl implements HomeDirRest {
         response.setHeader("Content-Length", String.valueOf(file.length()));
         Resource resource = new FileSystemResource(file);
         return resource;
+    }
 
-
+    @Override
+    @PostMapping (value ="/upload")
+    public UploadFileResponse storeFileNested( @RequestParam("file") MultipartFile file) throws IOException {
+        if (file.equals(null))
+            throw new IOException("IO Exception from controller!");
+        System.out.println("Rest call is OK");
+        return this.homeDirService.storeFile(file);
     }
 }

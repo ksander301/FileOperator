@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /*
- * Experimental of global handling exceptions, not useful,
+ * Experimental of global handling exceptions, its unuseful,
  * DefaultErrorController has more functionality
  */
 @RestControllerAdvice
