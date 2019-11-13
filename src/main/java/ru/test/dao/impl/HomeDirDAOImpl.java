@@ -34,7 +34,7 @@ public class HomeDirDAOImpl implements HomeDirDAO {
 
     @Override
     public List<String> getHomeDirContent() throws IOException {
-        List<String> resultList = null;
+        List<String> resultList;
         if (Files.exists(this.homeDir.getHomePath()) && Files.isDirectory(this.homeDir.getHomePath())) {
             try (Stream<Path> walk = Files.walk(this.homeDir.getHomePath())) {
                 resultList = walk.filter(Files::isRegularFile)
@@ -64,10 +64,9 @@ public class HomeDirDAOImpl implements HomeDirDAO {
     public String storeFile(MultipartFile multipartFile) throws IOException {
         Path fileUploadPath = this.homeDir.getStorePath().toAbsolutePath().normalize();
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        Path targetLocation= fileUploadPath.resolve(fileName);
+        Path targetLocation = fileUploadPath.resolve(fileName);
         //TODO Have to implements own FileUploadException
-        Files.copy(multipartFile.getInputStream(),targetLocation, StandardCopyOption.REPLACE_EXISTING);
-
+        Files.copy(multipartFile.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
         return fileName;
     }
 }

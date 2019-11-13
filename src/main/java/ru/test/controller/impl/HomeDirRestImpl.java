@@ -20,7 +20,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -43,16 +45,22 @@ public class HomeDirRestImpl implements HomeDirRest {
         response.setContentType("text/plain");
         response.setHeader("Content-Disposition", "inline; filename=" + file.getName());
         response.setHeader("Content-Length", String.valueOf(file.length()));
-        Resource resource = new FileSystemResource(file);
-        return resource;
+        return new FileSystemResource(file);
+
     }
 
     @Override
-    @PostMapping (value ="/upload")
-    public UploadFileResponse storeFileNested( @RequestParam("file") MultipartFile file) throws IOException {
+    @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public UploadFileResponse storeFileNested(@RequestParam("file") MultipartFile file) throws IOException {
         if (file.equals(null))
             throw new IOException("IO Exception from controller!");
         System.out.println("Rest call is OK");
         return this.homeDirService.storeFile(file);
+    }
+
+    @Override
+    @RequestMapping(value = "/uploadMultiFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<UploadFileResponse> storeMultiFilesNested(@RequestParam("files") MultipartFile[] files) throws RuntimeException {
+        return this.homeDirService.storeMultiFiles(files);
     }
 }

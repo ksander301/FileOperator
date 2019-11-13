@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface HomeDirRest {
     List<String> getHomeDirContent() throws IOException;
-
     Resource getFileByName(String fileName, HttpServletResponse response) throws FileNotFoundException;
     UploadFileResponse storeFileNested (MultipartFile file) throws IOException;
+    List<UploadFileResponse> storeMultiFilesNested( MultipartFile[] files) throws RuntimeException;
 }

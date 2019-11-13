@@ -13,4 +13,6 @@ public interface HomeDirService {
 
     File getFile(String fileName) throws FileNotFoundException;
     UploadFileResponse storeFile (MultipartFile file) throws IOException;
+    List<UploadFileResponse> storeMultiFiles(MultipartFile[] files) throws RuntimeException;
+
 }
