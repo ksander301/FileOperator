@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.test.controller.entity.UploadFileResponse;
+import ru.test.controller.exception.FileStoreException;
 import ru.test.dao.HomeDirDAO;
 import ru.test.logic.HomeDirService;
 import ru.test.logic.wrapif.FunctionWithException;
@@ -48,7 +49,7 @@ public class HomeDirServiceImpl implements HomeDirService {
     }
 
     @Override
-    public UploadFileResponse storeFile(MultipartFile file) throws IOException {
+    public UploadFileResponse storeFile(MultipartFile file) throws FileStoreException {
 
         String fileName = this.homeDirDAO.storeFile(file);
 
@@ -60,7 +61,7 @@ public class HomeDirServiceImpl implements HomeDirService {
             System.out.println("Service call  OK");
             return new UploadFileResponse(fileName, fileURI, file.getContentType(), file.getSize());
         } else
-            throw new IOException("IO Exception from Service!"); //TODO Change descrption or Create UploadException
+            throw new FileStoreException("IO Exception from Service!"); //TODO Change descrption or Create UploadException
 
     }
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import ru.test.controller.exception.FileStoreException;
 import ru.test.dao.HomeDirDAO;
 import ru.test.model.HomeDir;
 
@@ -61,12 +62,16 @@ public class HomeDirDAOImpl implements HomeDirDAO {
     }
 
     @Override
-    public String storeFile(MultipartFile multipartFile) throws IOException {
-        Path fileUploadPath = this.homeDir.getStorePath().toAbsolutePath().normalize();
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        Path targetLocation = fileUploadPath.resolve(fileName);
-        //TODO Have to implements own FileUploadException
-        Files.copy(multipartFile.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-        return fileName;
+    public String storeFile(MultipartFile file) throws FileStoreException {
+        try {
+            Path fileUploadPath = this.homeDir.getStorePath().toAbsolutePath().normalize();
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            Path targetLocation = fileUploadPath.resolve(fileName);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            return fileName;
+        } catch (IOException ex) {
+            throw new FileStoreException("ERROR during store file with DAO!");
+        }
+
     }
 }

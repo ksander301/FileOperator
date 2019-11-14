@@ -2,6 +2,7 @@ package ru.test.dao;
 
 
 import org.springframework.web.multipart.MultipartFile;
+import ru.test.controller.exception.FileStoreException;
 import ru.test.model.HomeDir;
 
 import java.io.File;
@@ -13,5 +14,5 @@ public interface HomeDirDAO {
     List<String> getHomeDirContent() throws IOException;
 
     File getFile (String fileName) throws FileNotFoundException;
-    String storeFile (MultipartFile multipartFile) throws IOException;
+    String storeFile (MultipartFile multipartFile) throws FileStoreException;
 }
