@@ -1,4 +1,4 @@
-package ru.test.controller.exception;
+package ru.test.controller.error;
 
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;

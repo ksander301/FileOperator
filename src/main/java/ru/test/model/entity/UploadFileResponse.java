@@ -1,4 +1,4 @@
-package ru.test.controller.entity;
+package ru.test.model.entity;
 
 public class UploadFileResponse {
     private String fileName;

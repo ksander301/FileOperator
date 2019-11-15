@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.test.controller.entity.UploadFileResponse;
+import ru.test.model.entity.UploadFileResponse;
 import ru.test.controller.exception.FileStoreException;
 import ru.test.dao.HomeDirDAO;
 import ru.test.logic.HomeDirService;
@@ -23,7 +23,6 @@ public class HomeDirServiceImpl implements HomeDirService {
 
     @Autowired
     public HomeDirDAO homeDirDAO;
-
 
     private <T, R, E extends Exception>
     Function<T, R> storeFileWrapper(FunctionWithException<T, R, E> fe) {
@@ -50,19 +49,13 @@ public class HomeDirServiceImpl implements HomeDirService {
 
     @Override
     public UploadFileResponse storeFile(MultipartFile file) throws FileStoreException {
-
         String fileName = this.homeDirDAO.storeFile(file);
-
-        if (!fileName.equals("") || !fileName.equals(null)) {
-            String fileURI = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/files/get/")
-                    .path(fileName)
-                    .toUriString();
-            System.out.println("Service call  OK");
-            return new UploadFileResponse(fileName, fileURI, file.getContentType(), file.getSize());
-        } else
-            throw new FileStoreException("IO Exception from Service!"); //TODO Change descrption or Create UploadException
-
+        String fileURI = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/files/get/")
+                .path(fileName)
+                .toUriString();
+        System.out.println("Service call  OK");
+        return new UploadFileResponse(fileName, fileURI, file.getContentType(), file.getSize());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package ru.test.controller.exception;
+package ru.test.model.entity;
 import java.util.Date;
 
 /* Created for test custom Exception Response entity

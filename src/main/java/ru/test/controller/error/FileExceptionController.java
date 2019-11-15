@@ -1,21 +1,15 @@
-package ru.test.controller.exception;
+package ru.test.controller.error;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import javax.servlet.RequestDispatcher;
+import ru.test.model.entity.ExceptionResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.NotDirectoryException;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /*
  * Experimental of global handling exceptions, its unuseful,
@@ -23,8 +17,8 @@ import java.util.stream.StreamSupport;
  */
 @RestControllerAdvice
 public class FileExceptionController extends ResponseEntityExceptionHandler {
-    @ExceptionHandler({IOException.class})
-    public ResponseEntity<ExceptionResponse> fileNotFound(IOException ex, HttpServletRequest request) {
+    @ExceptionHandler({IOException.class,RuntimeException.class})
+    public ResponseEntity<ExceptionResponse> fileNotFound(Exception ex, HttpServletRequest request) {
         HttpStatus status;
         if (ex instanceof FileNotFoundException) {
             status = HttpStatus.NOT_FOUND; //TODO Something better ...

@@ -2,27 +2,19 @@ package ru.test.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 import ru.test.controller.HomeDirRest;
-import ru.test.controller.entity.UploadFileResponse;
+import ru.test.model.entity.UploadFileResponse;
 import ru.test.logic.HomeDirService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -51,16 +43,18 @@ public class HomeDirRestImpl implements HomeDirRest {
 
     @Override
     @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UploadFileResponse storeFileNested(@RequestParam("file") MultipartFile file) throws IOException {
-        if (file.equals(null))
-            throw new IOException("IO Exception from controller!");
+    public UploadFileResponse storeFileNested(@RequestParam("file") MultipartFile file) throws IOException, RuntimeException {
         System.out.println("Rest call is OK");
+        if (file.equals(null) || file.getName().isEmpty())
+            throw new RuntimeException("Request file param is empty. Nothing to store!");
         return this.homeDirService.storeFile(file);
     }
 
     @Override
     @RequestMapping(value = "/uploadMultiFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UploadFileResponse> storeMultiFilesNested(@RequestParam("files") MultipartFile[] files) throws RuntimeException {
+        if (files.length == 0)
+            throw new RuntimeException("Request files array is empty. Nothing to store!");
         return this.homeDirService.storeMultiFiles(files);
     }
 }
