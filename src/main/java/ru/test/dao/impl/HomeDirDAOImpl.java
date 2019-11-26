@@ -47,7 +47,7 @@ public class HomeDirDAOImpl implements HomeDirDAO {
             }
             return resultList;
         } else
-            throw new NotDirectoryException("Path Value of property is not a valid irectory: " + this.homePathStr);
+            throw new NotDirectoryException("Path Value of property is not a valid directory: " + this.homePathStr);
     }
 
 

@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.test.controller.HomeDirRest;
@@ -15,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -57,4 +60,5 @@ public class HomeDirRestImpl implements HomeDirRest {
             throw new RuntimeException("Request files array is empty. Nothing to store!");
         return this.homeDirService.storeMultiFiles(files);
     }
+
 }
