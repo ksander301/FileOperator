@@ -12,8 +12,9 @@
 </head>
 <body>
 <h1>File Operator Start Page</h1>
-
-<h2>${message}</h2>
+<b>${message}</b>
+<br>
+<br>
 <table>
     <tr>
         <td><a href="${pageContext.request.contextPath}/fileList">Download</a>

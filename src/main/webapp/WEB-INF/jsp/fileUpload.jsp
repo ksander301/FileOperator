@@ -5,13 +5,10 @@
 </head>
 <body>
 <h2> Upload file to server</h2>
-<a href="${pageContext.request.contextPath}/index">Home Page</a>
-<br>
-<form enctype="multipart/form-data" action="/resultUpload" method="post">
+<form enctype="multipart/form-data" action="${pageContext.request.contextPath}/resultUpload" method="post">
     <p>Select your file</p>
-
     <div>
-        <input type="file" name="files" size="400" value="fileupload" id="fileupload" accept="*/*" multiple="true">
+        <input type="file" name="files" size="800" value="fileupload" id="fileupload" multiple="true">
         <input type="submit" value="Upload" id="Upload">
     </div>
 
@@ -19,6 +16,13 @@
         <p>No files currently selected for upload...</p>
     </div>
 </form>
+
+<table>
+    <tr>
+        <td><a href="${pageContext.request.contextPath}/index">Start Page</a></td>
+        <td><a href="${pageContext.request.contextPath}/fileList">Download</a>
+    </tr>
+</table>
 
 <script>
 

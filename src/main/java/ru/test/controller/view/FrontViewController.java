@@ -7,15 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
-import ru.test.controller.HomeDirRest;
 import ru.test.logic.HomeDirService;
+import ru.test.model.entity.UploadFileResponse;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class FrontViewController {
@@ -25,9 +21,7 @@ public class FrontViewController {
 
     @GetMapping("/index")
     public String index(Model model) {
-        System.out.println("Index method call...");
-        String message = "Choose availible link:";
-        model.addAttribute("message", message);
+        model.addAttribute("message", "Make your choice...");
         return "index";
     }
 
@@ -44,12 +38,9 @@ public class FrontViewController {
     }
 
     @PostMapping("/resultUpload")
-    public String resultUpload(@RequestParam("files") MultipartFile[] files) {
-        this.homeDirService.storeMultiFiles(files);
-        System.out.println("Result Upload Rest Call");
-
+    public String resultUpload(@RequestParam("files") MultipartFile[] files, Model model) {
+        model.addAttribute("updList", this.homeDirService.storeMultiFiles(files));
         return "/resultUpload";
     }
-
 }
 
