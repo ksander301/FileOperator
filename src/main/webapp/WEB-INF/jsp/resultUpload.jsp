@@ -6,19 +6,18 @@
 <html>
 <head>
     <title>Upload Summary</title>
+    <link href="css/style.css"
+          rel="stylesheet">
 </head>
 <body>
 <h2> Upload Summary</h2>
 <p> Files has been upload successfuly...</p>
-<table border="0">
-
+<table class="tabResult">
     <tr>
-        <thead>
         <th>Name</th>
         <th>FileURL</th>
         <th>Type</th>
         <th>Size</th>
-        </thead>
     </tr>
     <c:forEach items="${updList}" var="updateResponse">
         <tr>

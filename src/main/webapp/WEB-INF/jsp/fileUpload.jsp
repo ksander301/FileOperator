@@ -1,15 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
 <html>
 <head>
     <title>Upload Files</title>
+    <link href="css/style.css"
+          rel="stylesheet">
 </head>
 <body>
 <h2> Upload file to server</h2>
 <form enctype="multipart/form-data" action="${pageContext.request.contextPath}/resultUpload" method="post">
     <p>Select your file</p>
     <div>
-        <input type="file" name="files" size="800" value="fileupload" id="fileupload" multiple="true">
-        <input type="submit" value="Upload" id="Upload">
+        <label for="fileupload" class="Button">Browse</label>
+        <input type="file" name="files" size="800" value="fileupload" id="fileupload" multiple="true" hidden>
+        <input type="submit" value="Upload" id="Upload" disabled="true" class="Button">
     </div>
 
     <div class="preview">
@@ -28,6 +33,7 @@
 
     var input = document.querySelector('input');
     var preview = document.querySelector('.preview');
+    var uploadButton = document.getElementById('Upload');
     input.style.opacity = 1;
     input.addEventListener('change', this.updateItemList);
 
@@ -37,10 +43,12 @@
         }
         var curFiles = input.files;
         if (curFiles.length == 0) {
+            uploadButton.disabled = true;
             var pInfo = document.createElement('p')
             pInfo.textContent = 'No file selected';
             preview.appendChild(pInfo);
         } else {
+            uploadButton.disabled = false;
             var list = document.createElement('ol');
             preview.appendChild(list);
             for (var i = 0; i < curFiles.length; i++) {

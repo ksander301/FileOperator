@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Welcome</title>
-
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 <h1>File Operator Start Page</h1>

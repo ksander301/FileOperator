@@ -4,6 +4,8 @@
 <html>
 <head>
     <title>Download files</title>
+    <link href="css/style.css"
+          rel="stylesheet">
 </head>
 <body>
 <h2>Download files</h2>
@@ -15,8 +17,8 @@
     </tr>
 </table>
 <br>
-<div align="left">
-    <table border="0">
+<div align="left" >
+    <table border="0" cellpadding="2" >
         <tr>
             <td><b>File URL</b></td>
         </tr>

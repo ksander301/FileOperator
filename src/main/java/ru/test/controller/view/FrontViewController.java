@@ -39,7 +39,9 @@ public class FrontViewController {
 
     @PostMapping("/resultUpload")
     public String resultUpload(@RequestParam("files") MultipartFile[] files, Model model) {
-        model.addAttribute("updList", this.homeDirService.storeMultiFiles(files));
+       // List<UploadFileResponse> uploadFileResponses = this.homeDirService.storeMultiFiles(files);
+        //System.out.println("List size:" + uploadFileResponses.size());
+        model.addAttribute("updList",this.homeDirService.storeMultiFiles(files));
         return "/resultUpload";
     }
 }
